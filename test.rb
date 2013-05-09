@@ -1,10 +1,10 @@
 require './app.rb'
 
 cohort = Cohort.find(1)
-cohort[:name] = 'Best Cohort Ever'
+cohort[:name] = 'Blah Best Ever'
 cohort.save
 
-puts Cohort.find(1)[:name] == 'Best Cohort Ever'
+puts Cohort.find(1)[:name] == 'Blah Best Ever'
 
 
 cohort = Cohort.where('name = ?', 'Alpha').first

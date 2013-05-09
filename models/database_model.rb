@@ -20,6 +20,30 @@ module Database
       @old_attributes = @attributes.dup
     end
 
+    def save
+      if new_record?
+        results = insert!
+      else
+        results = update!
+      end
+      # When we save, remove changes between new and old attributes
+      @old_attributes = @attributes.dup
+      results
+    end
+
+    def [](attribute)
+      raise_error_if_invalid_attribute!(attribute)
+
+      @attributes[attribute]
+    end
+
+    def []=(attribute, value)
+      raise_error_if_invalid_attribute!(attribute)
+
+      @attributes[attribute] = value
+    end
+
+
     def self.inherited(klass)
     end
 

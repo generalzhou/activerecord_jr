@@ -29,37 +29,10 @@ class Student < Database::Model
 
   # e.g., Student.new(:id => 1, :first_name => 'Steve', :last_name => 'Rogers', ...)
 
-  def save
-    if new_record?
-      results = insert!
-    else
-      results = update!
-    end
-
-    # When we save, remove changes between new and old attributes
-    @old_attributes = @attributes.dup
-
-    results
-  end
-
   # We say a record is "new" if it doesn't have a defined primary key in its
   # attributes
   def new_record?
     self[:id].nil?
-  end
-
-  # e.g., student['first_name'] #=> 'Steve'
-  def [](attribute)
-    raise_error_if_invalid_attribute!(attribute)
-
-    @attributes[attribute]
-  end
-
-  # e.g., student['first_name'] = 'Steve'
-  def []=(attribute, value)
-    raise_error_if_invalid_attribute!(attribute)
-
-    @attributes[attribute] = value
   end
 
   def cohort
