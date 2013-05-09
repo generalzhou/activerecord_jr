@@ -5,6 +5,21 @@ module Database
   class NotConnectedError < StandardError;end
 
   class Model
+
+    # self.attribute_names = []
+    
+    def initialize(attributes = {})
+      attributes.symbolize_keys!
+      raise_error_if_invalid_attribute!(attributes.keys)
+
+      @attributes = {}
+
+      self.class.attribute_names.each do |name|
+        @attributes[name] = attributes[name]
+      end
+      @old_attributes = @attributes.dup
+    end
+
     def self.inherited(klass)
     end
 
@@ -15,6 +30,7 @@ module Database
     def self.filename
       @filename
     end
+
 
     def self.database=(filename)
       @filename = filename.to_s
